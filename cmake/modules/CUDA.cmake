@@ -38,6 +38,11 @@ if(USE_CUDA)
   list(APPEND TVM_RUNTIME_LINKER_LIBS ${CUDA_CUDA_LIBRARY})
   list(APPEND TVM_RUNTIME_LINKER_LIBS ${CUDA_NVRTC_LIBRARY})
 
+  if(NOT DEFINED CMAKE_CUDA_ARCHITECTURES)
+    message(STATUS "CMAKE_CUDA_ARCHITECTURES not set, using native")
+    set(CMAKE_CUDA_ARCHITECTURES native)
+  endif()
+
   if(USE_CUDNN)
     message(STATUS "Build with cuDNN support")
     include_directories(SYSTEM ${CUDA_CUDNN_INCLUDE_DIRS})
